@@ -1,0 +1,18 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/januka/tracking_catkin/devel/lib/python3/dist-packages",
+        "/home/januka/obstacle_catkin/devel/lib/python3/dist-packages",
+        "/home/januka/Major_Project_catkin/devel/lib/python3/dist-packages",
+        "/home/januka/MTRX5700_catkin/devel/lib/python3/dist-packages",
+        "/home/januka/5700_catkin/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/januka/tracking_catkin/devel/lib/python3/dist-packages",
+        "/home/januka/obstacle_catkin/devel/lib/python3/dist-packages",
+        "/home/januka/Major_Project_catkin/devel/lib/python3/dist-packages",
+        "/home/januka/MTRX5700_catkin/devel/lib/python3/dist-packages",
+        "/home/januka/5700_catkin/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
+}

@@ -1,0 +1,39 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/januka/tracking_catkin/devel/include/**",
+        "/home/januka/obstacle_catkin/devel/include/**",
+        "/home/januka/Major_Project_catkin/devel/include/**",
+        "/home/januka/MTRX5700_catkin/devel/include/**",
+        "/home/januka/5700_catkin/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/januka/MTRX5700_catkin/src/ThePowerChamber/assignment2/include/**",
+        "/home/januka/MTRX5700_catkin/src/FlockBlockers/image_pipeline/depth_image_proc/include/**",
+        "/home/januka/MTRX5700_catkin/src/FlockBlockers/image_pipeline/image_proc/include/**",
+        "/home/januka/Major_Project_catkin/src/FlockBlockers/realsense-ros/realsense2_camera/include/**",
+        "/home/januka/Major_Project_catkin/src/ROS-Object-Detection-2Dto3D-RealsenseD435/realsense_d435/include/**",
+        "/home/januka/MTRX5700_catkin/src/SLAMmeDaddy/assignment_3_students/third_parties/realsense_gazebo_plugin/include/**",
+        "/home/januka/Major_Project_catkin/src/FlockBlockers/scarecrow/include/**",
+        "/home/januka/MTRX5700_catkin/src/FlockBlockers/image_pipeline/stereo_image_proc/include/**",
+        "/home/januka/tracking_catkin/src/tracker_publisher/include/**",
+        "/home/januka/MTRX5700_catkin/src/SLAMmeDaddy/assignment_3_students/third_parties/turtlebot3_simulations/turtlebot3_fake/include/**",
+        "/home/januka/MTRX5700_catkin/src/SLAMmeDaddy/assignment_3_students/third_parties/turtlebot3_simulations/turtlebot3_gazebo/include/**",
+        "/home/januka/MTRX5700_catkin/src/SLAMmeDaddy/assignment_3_students/third_parties/turtlebot3/turtlebot3_slam/include/**",
+        "/home/januka/tracking_catkin/src/zio_obstacle/virtual_bumper/include/**",
+        "/home/januka/tracking_catkin/src/zio_obstacle/zio_obstacle_msgs/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
