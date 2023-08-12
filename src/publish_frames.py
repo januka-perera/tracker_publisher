@@ -16,11 +16,52 @@ from geometry_msgs.msg import (
     TwistWithCovariance,
     AccelWithCovariance,
     Polygon,
+    Point32,
 )
 
 from shape_msgs.msg import SolidPrimitive
 
 import pandas as pd
+import numpy as np
+
+
+def get_bounding_box_coordinates(box_params):
+    center = box_params[:3]  # Extract center (x, y, z)
+    size = box_params[3:6]  # Extract size (length, width, height)
+    rotation = box_params[6]  # Extract rotation (yaw angle)
+
+    # Calculate half sizes in each dimension
+    half_length = size[0] / 2
+    half_width = size[1] / 2
+    half_height = size[2] / 2
+
+    # Define the 8 corners of the bounding box in local coordinates
+    corners_local = np.array(
+        [
+            [-half_length, -half_width, -half_height],
+            [half_length, -half_width, -half_height],
+            [half_length, half_width, -half_height],
+            [-half_length, half_width, -half_height],
+            [-half_length, -half_width, half_height],
+            [half_length, -half_width, half_height],
+            [half_length, half_width, half_height],
+            [-half_length, half_width, half_height],
+        ]
+    )
+
+    # Apply rotation to the local coordinates to get the coordinates in the global frame
+    rotation_matrix = np.array(
+        [
+            [np.cos(rotation), -np.sin(rotation), 0],
+            [np.sin(rotation), np.cos(rotation), 0],
+            [0, 0, 1],
+        ]
+    )
+
+    # Calculate the coordinates of the bounding box vertices in the global frame
+    corners_global = np.dot(corners_local, rotation_matrix.T) + center
+
+    return corners_global
 
 
 def format_pose(pedestrian: Object, data):
@@ -42,6 +83,30 @@ def format_bounding_box(pedestrian: Object, data):
     pedestrian.shape.dimensions.append(data["l"])
     pedestrian.shape.dimensions.append(data["w"])
     pedestrian.shape.dimensions.append(data["h"])
+
+
+def format_birds_eye_view(pedestrian: Object, data):
+    x = data["x"]
+    y = data["y"]
+    z = data["z"]
+
+    l = data["l"]
+    w = data["w"]
+    h = data["h"]
+
+    yaw = data["orientation"]
+
+    global_coords = get_bounding_box_coordinates([x, y, z, l, w, h, yaw])
+
+    # The shape boundary will be defined by 4 coordinates in top-down view
+
+    for i in range(4):
+        new_point = Point32()
+        new_point.x = global_coords[i][0]
+        new_point.y = global_coords[i][1]
+        new_point.z = 0.0
+
+        pedestrian.shape_boundary.points.append(new_point)
 
 
 def format_timestamp_header(header: Header, secs, nsecs, id):
@@ -97,7 +162,7 @@ class TrackerPublisher:
                     self.current_nsecs,
                     frame_id,
                 )
-                
+
                 self.ObjectsSequenceStamped_msg.source_id = frame_id
                 self.ObjectsSequenceStamped_msg.objects_sequence = objects_stamped_msg
 
@@ -106,7 +171,7 @@ class TrackerPublisher:
                 )
 
                 print(self.ObjectsSequenceStamped_msg)
-                
+
                 frame_id += 1
                 self.PedestrianObjects = []
 
@@ -119,14 +184,12 @@ class TrackerPublisher:
 
             format_pose(pedestrian_object, row)
             format_bounding_box(pedestrian_object, row)
-
-            
+            format_birds_eye_view(pedestrian_object, row)
 
             self.PedestrianObjects.append(pedestrian_object)
 
             self.current_secs = row["secs"]
             self.current_nsecs = row["nsecs"]
-            
 
 
 def main():
