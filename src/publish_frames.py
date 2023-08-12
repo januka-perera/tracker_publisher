@@ -114,7 +114,7 @@ class TrackerPublisher:
             pedestrian_object = Object()
 
             pedestrian_object.id = index
-            pedestrian_object.category = "2"
+            pedestrian_object.category = "Person"
             pedestrian_object.confidence = row["confidence_level"]
 
             format_pose(pedestrian_object, row)
