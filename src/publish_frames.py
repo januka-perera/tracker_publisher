@@ -197,8 +197,6 @@ class TrackerPublisher:
             self.current_secs = row["secs"]
             self.current_nsecs = row["nsecs"]
 
-            rospy.Rate(10000).sleep()
-
         rospy.loginfo("Done publishing all frames")
 
 
@@ -213,16 +211,11 @@ def main():
 
     pedestrian_tracker = TrackerPublisher(file_name)
     pedestrian_tracker.publish_frame_data()
-   
+
     print(file_name)
 
     rospy.spin()
 
-    
-
-   
-
-    
 
 if __name__ == "__main__":
     main()
