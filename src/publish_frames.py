@@ -183,7 +183,7 @@ class TrackerPublisher:
             pedestrian_object.confidence = row["confidence_level"]
 
             format_pose(pedestrian_object, row)
-            format_bounding_box(pedestrian_object, row)
+            # format_bounding_box(pedestrian_object, row)
             format_birds_eye_view(pedestrian_object, row)
 
             self.PedestrianObjects.append(pedestrian_object)
