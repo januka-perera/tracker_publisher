@@ -142,6 +142,8 @@ class TrackerPublisher:
         df = pd.read_csv(self.file_path)
 
         frame_id = 0
+
+        rospy.loginfo("Starting publishing frames")
         for index, row in df.iterrows():
             current_frame = int(row["Frame#"])
 
@@ -164,32 +166,40 @@ class TrackerPublisher:
                 )
 
                 self.ObjectsSequenceStamped_msg.source_id = frame_id
-                self.ObjectsSequenceStamped_msg.objects_sequence = objects_stamped_msg
+                self.ObjectsSequenceStamped_msg.objects_sequence.append(
+                    objects_stamped_msg
+                )
 
                 self.ObjectsSequenceStamped_publisher.publish(
                     self.ObjectsSequenceStamped_msg
                 )
 
-                print(self.ObjectsSequenceStamped_msg)
+                rospy.loginfo(
+                    f"Published frame with sec = {int(self.current_secs)} and nsec = {int(self.current_nsecs)}"
+                )
 
                 frame_id += 1
                 self.PedestrianObjects = []
+                self.ObjectsSequenceStamped_msg.objects_sequence = []
 
             # Construct the pedestrian object
             pedestrian_object = Object()
 
-            pedestrian_object.id = index
+            pedestrian_object.id = 0
             pedestrian_object.category = "Person"
             pedestrian_object.confidence = row["confidence_level"]
 
             format_pose(pedestrian_object, row)
-            # format_bounding_box(pedestrian_object, row)
             format_birds_eye_view(pedestrian_object, row)
 
             self.PedestrianObjects.append(pedestrian_object)
 
             self.current_secs = row["secs"]
             self.current_nsecs = row["nsecs"]
+
+            rospy.Rate(10000).sleep()
+
+        rospy.loginfo("Done publishing all frames")
 
 
 def main():
@@ -203,10 +213,16 @@ def main():
 
     pedestrian_tracker = TrackerPublisher(file_name)
     pedestrian_tracker.publish_frame_data()
+   
     print(file_name)
 
     rospy.spin()
 
+    
+
+   
+
+    
 
 if __name__ == "__main__":
     main()
