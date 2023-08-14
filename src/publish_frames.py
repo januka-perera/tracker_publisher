@@ -76,6 +76,14 @@ def format_pose(pedestrian: Object, data):
     pedestrian.pose.pose.orientation.z = quat[2]
     pedestrian.pose.pose.orientation.w = quat[3]
 
+    # Set covariance for xyz position to be 0.5 m
+    for i in range(3):
+        pedestrian.pose.covariance[i * 7] = 0.5
+
+    # Set covariance for xyz orientation to be 0.1 rad
+    for i in range(3, 6):
+        pedestrian.pose.covariance[i * 7] = 0.1
+
 
 def format_bounding_box(pedestrian: Object, data):
     pedestrian.shape.type = pedestrian.shape.BOX
@@ -174,8 +182,9 @@ class TrackerPublisher:
                     self.ObjectsSequenceStamped_msg
                 )
 
+                print(self.ObjectsSequenceStamped_msg)
                 rospy.loginfo(
-                    f"Published frame with sec = {int(self.current_secs)} and nsec = {int(self.current_nsecs)}"
+                    f"Published frame with sec = {int(self.current_secs)} and nsec = {int(self.current_nsecs)} containing {len(self.PedestrianObjects)} objects"
                 )
 
                 frame_id += 1
