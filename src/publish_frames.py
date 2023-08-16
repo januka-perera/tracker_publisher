@@ -131,7 +131,7 @@ class TrackerPublisher:
         self.file_path = file_path
 
         self.ObjectsSequenceStamped_publisher = rospy.Publisher(
-            "/objects_data", ObjectsSequenceStamped, queue_size=10
+            "perceived_objects", ObjectsSequenceStamped, queue_size=10
         )
         self.ObjectsSequenceStamped_msg = ObjectsSequenceStamped()
 
@@ -195,7 +195,7 @@ class TrackerPublisher:
             pedestrian_object = Object()
 
             pedestrian_object.id = 0
-            pedestrian_object.category = "Person"
+            pedestrian_object.category = "person"
             pedestrian_object.confidence = row["confidence_level"]
 
             format_pose(pedestrian_object, row)
