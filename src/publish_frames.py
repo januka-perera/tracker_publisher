@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
 from tf.transformations import quaternion_from_euler
@@ -64,7 +64,7 @@ def get_bounding_box_coordinates(box_params):
     return corners_global
 
 
-def format_pose(pedestrian: Object, data):
+def format_pose(pedestrian, data):
     pedestrian.pose.pose.position.x = data["x"]
     pedestrian.pose.pose.position.y = data["y"]
     pedestrian.pose.pose.position.z = data["z"]
@@ -85,7 +85,7 @@ def format_pose(pedestrian: Object, data):
         pedestrian.pose.covariance[i * 7] = 0.1
 
 
-def format_bounding_box(pedestrian: Object, data):
+def format_bounding_box(pedestrian, data):
     pedestrian.shape.type = pedestrian.shape.BOX
 
     pedestrian.shape.dimensions.append(data["l"])
@@ -117,7 +117,7 @@ def format_birds_eye_view(pedestrian: Object, data):
         pedestrian.shape_boundary.points.append(new_point)
 
 
-def format_timestamp_header(header: Header, secs, nsecs, id):
+def format_timestamp_header(header, secs, nsecs, id):
     header.frame_id = id
     header.seq = id
 
