@@ -118,7 +118,7 @@ def format_birds_eye_view(pedestrian, data):
 
 
 def format_timestamp_header(header, secs, nsecs, id):
-    header.frame_id = id
+    header.frame_id = "base_link"
     header.seq = id
 
     header.stamp.secs = int(secs)
