@@ -93,7 +93,7 @@ def format_bounding_box(pedestrian, data):
     pedestrian.shape.dimensions.append(data["h"])
 
 
-def format_birds_eye_view(pedestrian: Object, data):
+def format_birds_eye_view(pedestrian, data):
     x = data["x"]
     y = data["y"]
     z = data["z"]
