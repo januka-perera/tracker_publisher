@@ -182,6 +182,8 @@ class TrackerPublisher:
                     self.ObjectsSequenceStamped_msg
                 )
 
+                rospy.sleep(0.5)
+
                 print(self.ObjectsSequenceStamped_msg)
                 rospy.loginfo(
                     "Published frame with sec = {} and nsec = {} containing {} objects".format(
