@@ -182,7 +182,7 @@ class TrackerPublisher:
                     self.ObjectsSequenceStamped_msg
                 )
 
-                rospy.sleep(0.5)
+                rospy.sleep(0.01)
 
                 print(self.ObjectsSequenceStamped_msg)
                 rospy.loginfo(
