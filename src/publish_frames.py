@@ -131,7 +131,7 @@ class TrackerPublisher:
         self.file_path = file_path
 
         self.ObjectsSequenceStamped_publisher = rospy.Publisher(
-            "perceived_objects", ObjectsSequenceStamped, queue_size=10
+            "/perceived_objects/perceived_objects", ObjectsSequenceStamped, queue_size=10
         )
         self.ObjectsSequenceStamped_msg = ObjectsSequenceStamped()
 
