@@ -184,7 +184,11 @@ class TrackerPublisher:
 
                 print(self.ObjectsSequenceStamped_msg)
                 rospy.loginfo(
-                    f"Published frame with sec = {int(self.current_secs)} and nsec = {int(self.current_nsecs)} containing {len(self.PedestrianObjects)} objects"
+                    "Published frame with sec = {} and nsec = {} containing {} objects".format(
+                        int(self.current_secs),
+                        int(self.current_nsecs),
+                        len(self.PedestrianObjects),
+                    )
                 )
 
                 frame_id += 1
