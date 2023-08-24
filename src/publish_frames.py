@@ -127,7 +127,7 @@ def format_timestamp_header(header, secs, nsecs, id):
 
 class TrackerPublisher:
     def __init__(self, file_path):
-        print(f"Path to file is {file_path}")
+        print("Path to file is {}".format(file_path))
         self.file_path = file_path
 
         self.ObjectsSequenceStamped_publisher = rospy.Publisher(
