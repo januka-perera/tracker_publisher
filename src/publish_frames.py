@@ -143,7 +143,7 @@ class TrackerPublisher:
     def format_msg_header(self, data, id):
         self.ObjectsSequenceStamped_msg.header.stamp.secs = int(data["secs"])
         self.ObjectsSequenceStamped_msg.header.stamp.nsecs = int(data["nsecs"])
-        self.ObjectsSequenceStamped_msg.header.frame_id = id
+        self.ObjectsSequenceStamped_msg.header.frame_id = "base_link"
         self.ObjectsSequenceStamped_msg.header.seq = id
 
     def publish_frame_data(self):
