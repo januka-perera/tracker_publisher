@@ -110,8 +110,10 @@ def format_birds_eye_view(pedestrian, data):
 
     for i in range(4):
         new_point = Point32()
-        new_point.x = global_coords[i][0]
-        new_point.y = global_coords[i][1]
+
+        # The x, y coordinates are the offsets from a zero centered polygon
+        new_point.x = l/2
+        new_point.y = w/2
         new_point.z = 0.0
 
         pedestrian.shape_boundary.points.append(new_point)
