@@ -175,7 +175,8 @@ class TrackerPublisher:
                     frame_id,
                 )
 
-                self.ObjectsSequenceStamped_msg.source_id = frame_id
+                # source i_d is 0
+                self.ObjectsSequenceStamped_msg.source_id = 0
                 self.ObjectsSequenceStamped_msg.objects_sequence.append(
                     objects_stamped_msg
                 )
