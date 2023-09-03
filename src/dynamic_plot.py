@@ -66,12 +66,22 @@ class Dynamic_Plotter:
         self.x_array = []
         self.y_array = []
         self.scatter = self.ax.scatter([], [], c='b', marker='o')  # Initialize an empty scatter plot
-        self.ax.set_xlim(0, 100)  # Adjust x-axis limits as needed
-        self.ax.set_ylim(0, 100)  # Adjust y-axis limits as needed
+
+        self.x_min = min(self.raw_data["x"])
+        self.x_max = max(self.raw_data["x"])
+
+        self.y_min = min(self.raw_data["y"])
+        self.y_max = max(self.raw_data["y"])
+
+
+        self.ax.set_xlim(self.x_min, self.x_max)  # Adjust x-axis limits as needed
+        self.ax.set_ylim(self.y_min, self.y_max)  # Adjust y-axis limits as needed
 
         self.max_data_points = 500
 
-        self.ani = FuncAnimation(self.fig, self.update_plot, frames=len(self.raw_data), blit=True, interval=1)
+        
+
+        self.ani = FuncAnimation(self.fig, self.update_plot, frames=len(self.raw_data), blit=True, interval=0.001)
 
     def update_plot(self, frame):
         row = self.raw_data.iloc[frame]
@@ -102,3 +112,4 @@ if __name__ == "__main__":
 
     plotter = Dynamic_Plotter(raw_data)
     plotter.show_animation()
+    print("Done plotting")
