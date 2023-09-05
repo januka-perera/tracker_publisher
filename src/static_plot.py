@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 from matplotlib.colors import ListedColormap
 from matplotlib import colors as mcolors
-
+from prettify_plot import prettify_plot
 
 #!/usr/bin/env python
 
@@ -29,8 +29,12 @@ class Static_Plotter:
         self.unique_ids = pd.unique(self.all_ids).tolist()
         print(self.unique_ids)
     def scatter_plot(self):
-       plt.scatter(self.all_x, self.all_y, cmap  = self.custom_colour_map, c = [self.unique_ids.index(elem) for elem in self.all_ids])
-       plt.show()
+       plt.scatter(self.all_x, self.all_y, cmap  = self.custom_colour_map, c = [self.unique_ids.index(elem) for elem in self.all_ids], s=10)
+       plt.title("Pedestrian tracks shown in different colours")
+       plt.xlabel("x position (m)")
+       plt.ylabel("y position (m)")
+       prettify_plot("PedXY_2st iteration")
+    #    plt.show()
 
 
 if __name__ == "__main__":
