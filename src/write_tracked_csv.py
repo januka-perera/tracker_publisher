@@ -10,8 +10,9 @@ from zio_obstacle_msgs.msg import (
     Trajectory
 )
 import time
+from tf.transformations import euler_from_quaternion
 
-def trajectory_callback(trajectory_msg, writer):
+def trajectory_callback(trajectory_msg : TrajectoriesStamped, writer):
     
     for trajectory in trajectory_msg.trajectories:
         row = []
@@ -20,9 +21,21 @@ def trajectory_callback(trajectory_msg, writer):
         curr_x_pos = trajectory.current.pose.pose.position.x
         current_y_pos = trajectory.current.pose.pose.position.y
 
+        quat_z = trajectory.current.pose.pose.orientation.z
+        quat_w = trajectory.current.pose.pose.orientation.w
+
+        quaternion = (0.0, 0.0, quat_z, quat_w)
+        euler_angles = euler_from_quaternion(quaternion)
+        yaw = euler_angles[2]
+
+        x_yaw = np.cos(yaw)
+        y_yaw = np.sin(yaw)
+
         row.append(id)
         row.append(curr_x_pos)
         row.append(current_y_pos)
+        row.append(x_yaw)
+        row.append(y_yaw)
 
         writer.writerow(row)
 
@@ -40,7 +53,7 @@ if __name__ == "__main__":
     with open(output_file, "w") as f:
         writer = csv.writer(f)
 
-        header = ['id', 'x_pos', 'y_pos']
+        header = ['id', 'x_pos', 'y_pos', 'x_yaw', 'y_yaw']
         writer.writerow(header)
         rospy.Subscriber("/pedestrians_tracker/objects_trajectories", TrajectoriesStamped, lambda msg: trajectory_callback(msg, writer), queue_size=100)    
         rospy.spin()
