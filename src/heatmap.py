@@ -46,6 +46,7 @@ def build_heatmap(
     # Add colorbar with a label
     cbar = plt.colorbar()
     cbar.ax.set_ylabel('Intensity')
+    # plt.show()
 
 
     # plt.show()
