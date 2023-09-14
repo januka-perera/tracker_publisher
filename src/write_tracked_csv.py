@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import csv 
 import numpy as np
 import rospy
@@ -53,7 +55,7 @@ if __name__ == "__main__":
     t = time.localtime()
     current_time = time.strftime("%H:%M:%S", t)
 
-    output_file = "csv_tracks" + current_time
+    output_file = "csv_tracksALL" + current_time
     
     with open(output_file, "w") as f:
         writer = csv.writer(f)
